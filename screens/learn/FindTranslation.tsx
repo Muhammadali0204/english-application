@@ -1,13 +1,11 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootState } from 'app/store';
 import { Button } from 'components/Button';
-import { useCompleteUnitMutation, useGetDictionaryDataQuery, useGetWordsQuery } from 'features/dict/dictionaryApi';
+import { useGetDictionaryDataQuery } from 'features/dict/dictionaryApi';
 import { RootStackParamList } from 'navigation';
 import React, { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, StatusBar, TextInput } from 'react-native'
 import Toast from 'react-native-toast-message';
-import { useSelector } from 'react-redux';
-import { CheckIcon, CursorArrowRaysIcon, XMarkIcon } from 'react-native-heroicons/solid';
+import { CheckIcon, XMarkIcon } from 'react-native-heroicons/solid';
 
 
 type NavigationProps = StackScreenProps<RootStackParamList, 'FindTranslation'>;

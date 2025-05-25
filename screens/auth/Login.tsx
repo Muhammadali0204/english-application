@@ -8,7 +8,7 @@ import Splash from '../../components/Splash';
 import Toast from 'react-native-toast-message';
 import { setAccessToken } from 'utils/calculations';
 import { useDispatch } from 'react-redux';
-import { socketService } from 'app/services/SockerService';
+import { socketService } from 'app/services/socketService';
 
 type Props = StackScreenProps<RootStackParamList, 'Login'>;
 
@@ -46,7 +46,6 @@ const Login = ({ navigation }: Props) => {
           text2: 'Xush kelibsiz'
         })
         dispatch(authApi.util.resetApiState())
-        socketService.connect(result.token);
         navigation.reset({
           index: 0,
           routes: [{name: "TabNavigator"}]

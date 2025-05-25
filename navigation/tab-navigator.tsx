@@ -4,14 +4,13 @@ import { RootStackParamList } from '.';
 import { TabBarIcon } from '../components/TabBarIcon';
 import Home from 'screens/home/Home';
 import Learn from 'screens/learn/Learn';
-import Competition from 'screens/competition/Competition';
 import Settings from 'screens/settings/Settings';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getTokenExpiry } from 'utils/jwtUtils';
 import Splash from 'components/Splash';
 import { setAccessToken } from 'utils/calculations';
-import { socketService } from 'app/services/SockerService';
+import { socketService } from 'app/services/socketService';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +28,7 @@ export default function TabLayout({ navigation }: Props) {
             setAccessToken(null)
             navigation.replace('Login');
           }else{
-            // socketService.connect(token);
+            socketService.connect(token);
           }
         }
         else{
@@ -73,15 +72,6 @@ export default function TabLayout({ navigation }: Props) {
         options={{
           title: 'So\'z yodlash',
           tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="Competition"
-        component={Competition}
-        options={{
-          title: 'Musobaqa',
-          tabBarIcon: ({ color }) => <TabBarIcon name="rocket" color={color} />,
           headerShown: false,
         }}
       />

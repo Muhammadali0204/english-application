@@ -9,6 +9,9 @@ import { UnitStatus, WordsResponse } from 'types/dict';
 import FindTranslation from 'screens/learn/FindTranslation';
 import EndLearning from 'screens/learn/EndLearning';
 import ShowFriends from 'screens/home/ShowFriends';
+import ShowRequests from 'screens/home/ShowRequests';
+import ChooseFriend from 'screens/competition/ChooseFriend';
+import GameScreen from 'screens/competition/GameScreen';
 
 export type RootStackParamList = {
   TabNavigator: undefined;
@@ -25,7 +28,10 @@ export type RootStackParamList = {
     unitsInBook: number,
     wordsInUnit: number
   },
-  ShowFriends: undefined
+  ShowFriends: undefined,
+  ShowRequests: undefined,
+  ChooseFriend: undefined,
+  GameScreen: undefined
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -34,7 +40,12 @@ export default function RootStack() {
   return (
     <NavigationContainer
       // onStateChange={(state) => {
-      //   console.log('🔍 NAV STATE:', JSON.stringify(state, null, 2));
+      //   const routes = state?.routes
+      //   let screens: any = []
+      //   routes?.map((value, index) => {
+      //     screens.push(`${index} - ${value.name} ${value.state?.index}`)
+      //   })
+      //   console.log(`Screens :\n${screens.join('\n')}`)
       // }}
     >
       <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade_from_right' }}>
@@ -46,6 +57,9 @@ export default function RootStack() {
           <Stack.Screen name="FindTranslation" component={FindTranslation} />
           <Stack.Screen name="EndLearning" component={EndLearning} />
           <Stack.Screen name="ShowFriends" component={ShowFriends } />
+          <Stack.Screen name="ShowRequests" component={ShowRequests} />
+          <Stack.Screen name="ChooseFriend" component={ChooseFriend} />
+          <Stack.Screen name="GameScreen" component={GameScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

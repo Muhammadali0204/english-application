@@ -10,6 +10,7 @@ import { RootState } from 'app/store'
 import { setAccessToken } from 'utils/calculations'
 import Toast from 'react-native-toast-message'
 import { authApi } from 'features/auth/authApi'
+import { socketService } from 'app/services/socketService'
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -23,6 +24,7 @@ const Settings = () => {
       dispatch(clearUser())
       setAccessToken(null)
       dispatch(authApi.util.resetApiState())
+      socketService.close()
       navigation.reset({
         index: 0,
         routes: [{name: 'Login'}]

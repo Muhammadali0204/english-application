@@ -1,12 +1,18 @@
-// services/SocketService.ts
 import { API_BASE_URL } from '@env';
 import { WebSocketMessage } from 'types/ws';
 
 class SocketService {
   private socket: WebSocket | null = null;
   private listeners: ((data: any) => void)[] = [];
+  private reconnectInterval = 5000;
+  private reconnectTimeout: NodeJS.Timeout | null = null;
+  private token: string | null = null;
+  private manuallyClosed = false;
 
   connect(token: string) {
+    this.token = token;
+    this.manuallyClosed = false;
+
     if (this.socket && this.socket.readyState === WebSocket.OPEN) {
       console.log('🔁 WebSocket already connected');
       return;
@@ -16,6 +22,10 @@ class SocketService {
 
     this.socket.onopen = () => {
       console.log('✅ WebSocket connected');
+      if (this.reconnectTimeout) {
+        clearTimeout(this.reconnectTimeout);
+        this.reconnectTimeout = null;
+      }
     };
 
     this.socket.onmessage = (event) => {
@@ -30,7 +40,23 @@ class SocketService {
 
     this.socket.onclose = () => {
       console.log('🛑 WebSocket disconnected');
+      this.socket = null;
+
+      if (!this.manuallyClosed) {
+        this.scheduleReconnect();
+      }
     };
+  }
+
+  private scheduleReconnect() {
+    if (this.reconnectTimeout || this.manuallyClosed) return;
+
+    console.log(`🔄 Trying to reconnect in ${this.reconnectInterval / 1000}s...`);
+    this.reconnectTimeout = setTimeout(() => {
+      if (this.token) {
+        this.connect(this.token);
+      }
+    }, this.reconnectInterval);
   }
 
   send(data: any) {
@@ -42,6 +68,11 @@ class SocketService {
   }
 
   close() {
+    this.manuallyClosed = true;
+    if (this.reconnectTimeout) {
+      clearTimeout(this.reconnectTimeout);
+      this.reconnectTimeout = null;
+    }
     this.socket?.close();
     this.socket = null;
   }

@@ -4,9 +4,15 @@ export type Friend = {
   name: string;
 }
 
-export type Request = {
+export type FriendshipRequest = {
   id: number;
   requester: Friend;
+  status: FriendshipStatus
+}
+
+export type FriendshipMyRequest = {
+  id: number;
+  receiver: Friend;
   status: FriendshipStatus
 }
 

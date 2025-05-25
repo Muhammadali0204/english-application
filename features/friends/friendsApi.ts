@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Friend } from 'types/friend';
+import { Friend, FriendshipMyRequest, FriendshipRequest } from 'types/friend';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `https://${API_BASE_URL}/api/friends`,
@@ -17,62 +17,64 @@ const baseQuery = fetchBaseQuery({
 export const friendsApi = createApi({
   reducerPath: 'friendsApi',
   baseQuery,
-  tagTypes: ['Friends', 'Requests'],
+  tagTypes: ['Friends', 'Requests', 'MyRequests'],
   endpoints: (builder) => ({
     getFriends: builder.query<Friend[], void>({
       query: () => '/all',
       providesTags: ['Friends'],
     }),
-    getFriendRequests: builder.query<Request[], void>({
+    getFriendshipRequests: builder.query<FriendshipRequest[], void>({
       query: () => '/requests',
       providesTags: ['Requests'],
     }),
-    sendFriendRequest: builder.mutation<any, number>({
-      query: (userId) => ({
-        url: `/send-request/${userId}`,
-        method: 'POST',
-      }),
-      invalidatesTags: ['Requests'],
+    getMyFriendshipRequests: builder.query<FriendshipMyRequest[], void>({
+      query: () => '/my-requests',
+      providesTags: ['MyRequests'],
     }),
-    cancelFriendRequest: builder.mutation<any, number>({
+    sendFriendshipRequest: builder.mutation<any, number>({
       query: (userId) => ({
-        url: `/cancel-request/${userId}`,
+        url: `/send-request`,
         method: 'POST',
+        params: {user_id: userId}
       }),
-      invalidatesTags: ['Requests'],
+      invalidatesTags: ['MyRequests'],
     }),
-    acceptFriendRequest: builder.mutation<any, number>({
+    cancelFriendshipRequest: builder.mutation<any, number>({
       query: (requestId) => ({
-        url: `/accept-request/${requestId}`,
+        url: `/cancel-request`,
         method: 'POST',
+        params: {request_id: requestId}
+      }),
+      invalidatesTags: ['MyRequests'],
+    }),
+    acceptFriendshipRequest: builder.mutation<any, number>({
+      query: (requestId) => ({
+        url: `/accept-request`,
+        method: 'POST',
+        params: {request_id: requestId}
       }),
       invalidatesTags: ['Friends', 'Requests'],
     }),
-    rejectFriendRequest: builder.mutation<any, number>({
+    rejectFriendshipRequest: builder.mutation<any, number>({
       query: (requestId) => ({
-        url: `/reject-request/${requestId}`,
+        url: '/reject-request',
         method: 'POST',
+        params: {request_id: requestId}
       }),
       invalidatesTags: ['Requests'],
     }),
     unfriend: builder.mutation<any, number>({
       query: (userId) => ({
-        url: `/unfriend/${userId}`,
+        url: `/unfriend`,
         method: 'POST',
+        params: {user_id: userId}
       }),
       invalidatesTags: ['Friends'],
     }),
-    blockUser: builder.mutation<any, number>({
-      query: (userId) => ({
-        url: `/block/${userId}`,
-        method: 'POST',
-      }),
-      invalidatesTags: ['Friends'],
-    }),
-    searchFriends: builder.query<Friend[], string>({
-      query: (username) => ({
+    searchFriends: builder.query<Friend[], { query: string, ts: number }>({
+      query: ({query}) => ({
         url: `/search`,
-        params: { username },
+        params: { query: encodeURIComponent(query) },
       }),
     }),
   }),
@@ -80,12 +82,12 @@ export const friendsApi = createApi({
 
 export const {
   useGetFriendsQuery,
-  useGetFriendRequestsQuery,
-  useSendFriendRequestMutation,
-  useCancelFriendRequestMutation,
-  useAcceptFriendRequestMutation,
-  useRejectFriendRequestMutation,
+  useGetFriendshipRequestsQuery,
+  useSendFriendshipRequestMutation,
+  useCancelFriendshipRequestMutation,
+  useAcceptFriendshipRequestMutation,
+  useRejectFriendshipRequestMutation,
   useUnfriendMutation,
-  useBlockUserMutation,
-  useSearchFriendsQuery,
+  useLazySearchFriendsQuery,
+  useGetMyFriendshipRequestsQuery,
 } = friendsApi;

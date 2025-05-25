@@ -2,19 +2,10 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 const Splash = () => {
   return (
-    <View style={styles.container}>
+    <View className='flex-1 justify-center items-center'>
       <ActivityIndicator size="large" color="#007AFF" />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-});
 
 export default Splash;
