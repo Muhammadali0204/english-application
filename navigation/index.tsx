@@ -11,7 +11,12 @@ import EndLearning from 'screens/learn/EndLearning';
 import ShowFriends from 'screens/home/ShowFriends';
 import ShowRequests from 'screens/home/ShowRequests';
 import ChooseFriend from 'screens/competition/ChooseFriend';
+import { Game, UserStatus } from 'types/other';
+import WaitTheGame from 'screens/competition/WaitTheGame';
 import GameScreen from 'screens/competition/GameScreen';
+import EndGame from 'screens/competition/EndGame';
+import { User } from 'types/user';
+import { Friend } from 'types/friend';
 
 export type RootStackParamList = {
   TabNavigator: undefined;
@@ -31,7 +36,22 @@ export type RootStackParamList = {
   ShowFriends: undefined,
   ShowRequests: undefined,
   ChooseFriend: undefined,
-  GameScreen: undefined
+  WaitTheGame: {
+    usersStatus: UserStatus[],
+    game : Game
+  },
+  GameScreen: {
+    users_count: number,
+    game: Game
+  },
+  EndGame: {
+    result: {
+      user: Friend,
+      point: number,
+      seconds: number
+    }[],
+    usersCount: number
+  }
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -59,7 +79,9 @@ export default function RootStack() {
           <Stack.Screen name="ShowFriends" component={ShowFriends } />
           <Stack.Screen name="ShowRequests" component={ShowRequests} />
           <Stack.Screen name="ChooseFriend" component={ChooseFriend} />
+          <Stack.Screen name="WaitTheGame" component={WaitTheGame} />
           <Stack.Screen name="GameScreen" component={GameScreen} />
+          <Stack.Screen name="EndGame" component={EndGame} />
       </Stack.Navigator>
     </NavigationContainer>
   );

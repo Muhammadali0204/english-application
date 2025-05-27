@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   StatusBar,
   Pressable,
+  Alert,
 } from 'react-native'
 import {
   useCancelFriendshipRequestMutation,
@@ -25,6 +26,7 @@ import { debounce } from 'lodash'
 import Toast from 'react-native-toast-message'
 import { AnimatedFriendItem } from 'components/AnimatedFriendItem'
 import { UserMinusIcon, XMarkIcon } from 'react-native-heroicons/solid'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const ShowFriends = () => {
   const { data: friends, isLoading } = useGetFriendsQuery(undefined, {
@@ -79,23 +81,30 @@ const ShowFriends = () => {
   }, [isSuccessFriendship, isErrorFriendship])
 
   const removeFriend = (friend: Friend) => {
-    const func = async () => {
-      await unfriend(friend.id).unwrap()
-      .then(() => {
-        Toast.show({
-          type: 'success',
-          text1: "Bajarildi",
-          text2: `${friend.name} do'stlarlardan olib tashlandi`
-        })
-      })
-      .catch(() => {
-        Toast.show({
-          type: 'error',
-          text1: "Xatolik yuz berdi"
-        })
-      })
-    }
-    func()
+    Alert.alert(
+      'Amalni tasdiqlang',
+      'Rostdan ushbu foydalanuvchi bilan do\'stlikni bekor qilmoqchimisiz ?',
+      [
+        {text: 'Ortga', style: 'cancel', onPress: () => {}},
+        {text: 'Ha', onPress: async () => {
+            await unfriend(friend.id).unwrap()
+            .then(() => {
+              Toast.show({
+                type: 'success',
+                text1: "Bajarildi",
+                text2: `${friend.name} do'stlarlardan olib tashlandi`
+              })
+            })
+            .catch(() => {
+              Toast.show({
+                type: 'error',
+                text1: "Xatolik yuz berdi"
+              })
+            })
+          }
+        }
+      ]
+    )
   }
 
   const cancelRequest = (requestId: number) => {
@@ -122,53 +131,49 @@ const ShowFriends = () => {
   return (
     <SafeAreaView className="flex-1 mx-2">
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <View className='flex-1'>
+        <ScrollView className='flex-1 pb-36'>
+          {friends && friends.length === 0 ? (
+            <Text className="text-3xl font-bold my-16 text-center">
+              Hozirda do'stlaringiz mavjud emas!
+            </Text>
+          ) : (
+              <View>
+                <Text className="text-3xl mt-4 font-bold mb-4">Do'stlaringiz:</Text>
+                {
+                  friends?.map((item) => (
+                    <View key={item.id} className="px-4 py-2 flex-row justify-between items-center bg-slate-200 rounded-lg mb-1">
+                      <AnimatedFriendItem friend={item} />
+                      <UserMinusIcon size={36} color={'red'} onPress={() => removeFriend(item)} />
+                    </View>
+                  ))
+                }
+              </View>
+          )}
 
-      {friends && friends.length === 0 ? (
-        <Text className="text-3xl font-bold my-16 text-center">
-          Hozirda do'stlaringiz mavjud emas!
-        </Text>
-      ) : (
-        <FlatList
-          className='max-h-60'
-          ListHeaderComponent={
-            <Text className="text-3xl mt-4 font-bold mb-4">Do'stlaringiz:</Text>
-          }
-          data={friends}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View className="px-4 py-2 flex-row justify-between items-center bg-slate-200 rounded-lg mb-1">
-              <AnimatedFriendItem friend={item} />
-              <UserMinusIcon size={36} color={'red'} onPress={() => removeFriend(item)} />
+          {!myRequestsLoading && myRequests && myRequests.length > 0 && (
+            <View>
+              <Text className="text-3xl mt-4 font-bold mb-4 text-center">Sizning takliflaringiz:</Text>
+              {
+                myRequests.map((item) => (
+                  <View key={item.id} className="px-4 py-2 flex-row justify-between items-center bg-slate-200 rounded-lg mb-1">
+                    <AnimatedFriendItem friend={item.receiver} />
+                    <Text className='bg-green-400 py-1 px-2 text-md rounded-lg'>Tasdiqlashi kutilmoqda</Text>
+                    <XMarkIcon size={36} color={'red'} onPress={() => cancelRequest(item.id)}/>
+                  </View>
+                ))
+              }
             </View>
           )}
-        />
-      )}
-
-      {!myRequestsLoading && myRequests && myRequests.length > 0 && (
-        <FlatList
-          className="max-h-60"
-          ListHeaderComponent={
-            <Text className="text-3xl mt-4 font-bold mb-4 text-center">Sizning takliflaringiz:</Text>
-          }
-          data={myRequests}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View className="px-4 py-2 flex-row justify-between items-center bg-slate-200 rounded-lg mb-1">
-              <AnimatedFriendItem friend={item.receiver} />
-              <Text className='bg-green-400 py-1 px-2 text-md rounded-lg'>Tasdiqlashi kutilmoqda</Text>
-              <XMarkIcon size={36} color={'red'} onPress={() => cancelRequest(item.id)}/>
-            </View>
-          )}
-        />
-      )}
-
-      <View className="flex items-center mt-4 absolute bottom-4 left-1/2 -translate-x-1/2">
-        <Pressable
-          className="rounded-full w-28 h-28 bg-blue-500 justify-center items-center"
-          onPress={() => setModalShowed(true)}
-        >
-          <Text className="text-white text-lg">+ Qo'shish</Text>
-        </Pressable>
+        </ScrollView>
+        <View className="flex items-center absolute bottom-6 mt-4 left-1/2 -translate-x-1/2">
+          <Pressable
+            className="rounded-full w-28 h-28 bg-blue-500 justify-center items-center"
+            onPress={() => setModalShowed(true)}
+          >
+            <Text className="text-white text-lg">+ Qo'shish</Text>
+          </Pressable>
+        </View>
       </View>
 
       <DynamicModal visible={modalShowed}>

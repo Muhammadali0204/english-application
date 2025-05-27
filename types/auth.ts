@@ -1,4 +1,3 @@
-import { User } from "./user";
 
 export type LoginCredentials = {
   username: string;
@@ -22,7 +21,11 @@ export type RegisterResult = {
 }
 
 export type ChangePasswordCredentails = {
-  newPassword: string,
+  newPass: string,
+}
+
+export type ChangeNameCredentails = {
+  newName: string,
 }
 
 export type ChangePasswordResult = {

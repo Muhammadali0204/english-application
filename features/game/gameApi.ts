@@ -18,11 +18,24 @@ export const gameApi = createApi({
   reducerPath: 'gameApi',
   baseQuery,
   endpoints: (builder) => ({
-    createGame: builder.mutation({
+    createGame: builder.mutation<any, {users: string[]}>({
       query: (credentials) => ({
         url: '/create',
         method: 'POST',
         body: credentials
+      })
+    }),
+    joinGame: builder.mutation({
+      query: (gameId) => ({
+        url: '/join',
+        method: "POST",
+        params: {game_id: gameId}
+      })
+    }),
+    startGame: builder.mutation<any, void>({
+      query: () => ({
+        url: '/start',
+        method: "POST",
       })
     })
   })
@@ -30,5 +43,7 @@ export const gameApi = createApi({
 
 
 export const {
-  useCreateGameMutation
+  useCreateGameMutation,
+  useJoinGameMutation,
+  useStartGameMutation
 } = gameApi

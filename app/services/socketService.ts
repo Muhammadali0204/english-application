@@ -36,6 +36,10 @@ class SocketService {
 
     this.socket.onerror = (e) => {
       console.error('❌ WebSocket error', e);
+      if (this.reconnectTimeout) {
+        clearTimeout(this.reconnectTimeout);
+        this.reconnectTimeout = null;
+      }
     };
 
     this.socket.onclose = () => {
@@ -59,7 +63,7 @@ class SocketService {
     }, this.reconnectInterval);
   }
 
-  send(data: any) {
+  send(data: WebSocketMessage) {
     if (this.socket?.readyState === WebSocket.OPEN) {
       this.socket.send(JSON.stringify(data));
     } else {

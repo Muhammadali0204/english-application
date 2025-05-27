@@ -2,7 +2,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_BASE_URL } from '@env';
-import { ChangePasswordCredentails, ChangePasswordResult, LoginCredentials, LoginResult, RegisterCredentials, RegisterResult } from 'types/auth';
+import { ChangeNameCredentails, ChangePasswordCredentails, ChangePasswordResult, LoginCredentials, LoginResult, RegisterCredentials, RegisterResult } from 'types/auth';
 import { User } from 'types/user';
 
 const baseQuery = fetchBaseQuery({
@@ -49,8 +49,18 @@ export const authApi = createApi({
         method: 'POST',
         body: credentials
       }),
+    }),
+    changeName: builder.mutation<ChangePasswordResult, ChangeNameCredentails>({
+      query: (credentials) => ({
+        url: '/change-name',
+        method: 'POST',
+        body: credentials
+      }),
     })
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useGetMeQuery, useLazyGetMeQuery} = authApi;
+export const { useLoginMutation, useRegisterMutation, useGetMeQuery, useLazyGetMeQuery,
+  useChangePasswordMutation,
+  useChangeNameMutation
+} = authApi;

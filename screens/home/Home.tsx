@@ -4,13 +4,14 @@ import { useGetMeQuery, useLazyGetMeQuery } from 'features/auth/authApi'
 import { clearUser, setUser } from 'features/auth/authSlice'
 import { RootStackParamList } from 'navigation'
 import { useEffect } from 'react'
-import { View, Text, SafeAreaView, StatusBar, Pressable } from 'react-native'
+import { View, Text, SafeAreaView, StatusBar, Pressable, Alert } from 'react-native'
 import Toast from 'react-native-toast-message'
 import { useDispatch } from 'react-redux'
 import { setAccessToken } from 'utils/calculations'
 import Splash from 'components/Splash'
 import { socketService } from 'app/services/socketService'
 import { WebSocketMessage, WSMessageTypes } from 'types/ws'
+import { useJoinGameMutation } from 'features/game/gameApi'
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -19,6 +20,7 @@ const Home = () => {
     refetchOnMountOrArgChange: true,
   });
   const [triggerGetMe] = useLazyGetMeQuery();
+  const [joinGameRequest] = useJoinGameMutation()
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationProp>();
 
@@ -60,6 +62,16 @@ const Home = () => {
           text2: `${data.data?.user.name} so'rovingizni rad etdi`
         });
       }
+      else if (data.type === WSMessageTypes.REQUEST_JOIN_GAME){
+        Alert.alert(
+          "O'yinga qo'shilish so'rovi",
+          `Taklif qilgan do'stingiz : ${data.data.user.name}\nQo'shilish uchun qo'shilish tugmasini bosing`,
+          [
+            {text: "Bekor qilish", style: 'cancel', onPress: () => {}},
+            {text: "Qo'shilish", onPress: () => joinGame(data.data.user.username)}
+          ]
+        )
+      }
     };
 
     socketService.subscribe(onMessage);
@@ -96,6 +108,26 @@ const Home = () => {
   const handleMyFriends = () => navigation.navigate('ShowFriends');
   const handleInvites = () => navigation.navigate('ShowRequests')
   const handleCompetition = () => navigation.navigate('ChooseFriend')
+
+  const joinGame = async (username: string) => {
+    await joinGameRequest(username).unwrap()
+    .then((data: any) => {
+      navigation.navigate(
+        'WaitTheGame',
+        {
+          usersStatus: data.users_status,
+          game: data.game
+        }
+      )
+    })
+    .catch((error) => {
+      Toast.show({
+        type: 'error',
+        text1: "Xatolik",
+        text2: "O'yinga qo'shilib bo'lmadi"
+      });
+    })
+  }
 
   if (isLoading) return <Splash />;
 
