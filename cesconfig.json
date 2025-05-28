@@ -1,6 +1,6 @@
 {
   "cesVersion": "2.18.0",
-  "projectName": "application",
+  "projectName": "english-words-app",
   "packages": [
     {
       "name": "react-navigation",

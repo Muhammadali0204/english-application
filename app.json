@@ -1,42 +1,25 @@
 {
   "expo": {
-    "name": "application",
-    "slug": "application",
+    "extra": {
+      "eas": {
+        "projectId": "988abde9-2bc7-49b6-84d8-6683a44f7af4"
+      }
+    },
+    "name": "Essential Battle",
+    "slug": "english-words-app",
     "version": "1.0.0",
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "experiments": {
-      "tsconfigPaths": true
-    },
-    "plugins": [
-      [
-        "expo-dev-launcher",
-        {
-          "launchMode": "most-recent"
-        }
-      ]
-    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "io.expo.client"
-    }
+      "package": "com.muhammadali.essentialbattle",
+      "versionCode": 1,
+      "icon": "./assets/icon.png"
+    },
+    "owner": "muhammadali02"
   }
 }

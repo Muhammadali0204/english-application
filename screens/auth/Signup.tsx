@@ -93,18 +93,18 @@ const Signup = ({ navigation }: Props) => {
     <View className='flex-1 items-center justify-center'>
       <Text className='text-4xl font-bold'>Ro'yxatdan o'tish</Text>
       <TextInput
-        className='border border-gray-300 rounded-md p-2 w-80 mt-4'
+        className='border border-gray-300 rounded-md p-2 w-80 mt-4 text-black'
         placeholder='Username'
         onChangeText={setUsername}
         value={username} />
       <TextInput
-        className='border border-gray-300 rounded-md p-2 w-80 mt-4'
+        className='border border-gray-300 rounded-md p-2 w-80 mt-4 text-black'
         placeholder='Parol'
         secureTextEntry={true}
         onChangeText={setPassword}
         value={password} />
       <TextInput
-        className='border border-gray-300 rounded-md p-2 w-80 mt-4'
+        className='border border-gray-300 rounded-md p-2 w-80 mt-4 text-black'
         placeholder='Ismingiz'
         onChangeText={setName}
         value={name} />

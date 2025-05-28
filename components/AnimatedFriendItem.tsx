@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { Animated, View, Text } from 'react-native'
+import { Animated, Text } from 'react-native'
 import { Friend } from 'types/friend'
 
 
