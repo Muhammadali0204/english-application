@@ -4,7 +4,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { RootStackParamList } from 'navigation'
 import { ScrollView } from 'react-native-gesture-handler'
 import { AnimatedFriendItem } from 'components/AnimatedFriendItem'
-import { TrophyIcon } from 'react-native-heroicons/solid'
+import { CheckIcon, TrophyIcon } from 'react-native-heroicons/solid'
 import { Button } from 'components/Button'
 
 type NavigationProps = StackScreenProps<RootStackParamList, 'EndGame'>
@@ -36,8 +36,10 @@ const EndGame: React.FC<NavigationProps> = ({route, navigation}) => {
                 {setNumber(index)}
                 <AnimatedFriendItem friend={item.user}/>
               </View>
-              <Text className='text-xl'>{item.point}</Text>
-              <Text className='text-xl'>{item.seconds}s</Text>
+              <View className='flex-row gap-1 items-center'>
+                <Text className='text-xl'>{item.point}</Text>
+                <CheckIcon color={'green'} size={24} />
+              </View>
             </View>
           ))
         }

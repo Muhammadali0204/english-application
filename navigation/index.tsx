@@ -48,7 +48,6 @@ export type RootStackParamList = {
     result: {
       user: Friend,
       point: number,
-      seconds: number
     }[],
     usersCount: number
   }
