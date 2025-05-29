@@ -4,7 +4,7 @@ import { useGetMeQuery, useLazyGetMeQuery } from 'features/auth/authApi'
 import { clearUser, setUser } from 'features/auth/authSlice'
 import { RootStackParamList } from 'navigation'
 import { useEffect } from 'react'
-import { View, Text, SafeAreaView, StatusBar, Pressable, Alert } from 'react-native'
+import { View, Text, StatusBar, Pressable, Alert } from 'react-native'
 import Toast from 'react-native-toast-message'
 import { useDispatch } from 'react-redux'
 import { setAccessToken } from 'utils/calculations'
@@ -132,7 +132,7 @@ const Home = () => {
   if (isLoading) return <Splash />;
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className='flex-1 mx-4'>
         <Text className={styles.hello_text}>Salom, {data?.name || 'Foydalanuvchi'}</Text>
@@ -153,7 +153,7 @@ const Home = () => {
           <Text className='text-3xl font-bold'>Bellashuv boshlash</Text>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

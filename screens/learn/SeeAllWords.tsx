@@ -2,8 +2,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { Button } from 'components/Button';
 import { useGetWordsQuery } from 'features/dict/dictionaryApi';
 import { RootStackParamList } from 'navigation';
-import { View, Text, SafeAreaView, StatusBar, FlatList, ActivityIndicator } from 'react-native';
-import { useSelector } from 'react-redux';
+import { View, Text, StatusBar, FlatList, ActivityIndicator } from 'react-native';
 
 type NavigationProps = StackScreenProps<RootStackParamList, 'SeeAllWords'>;
 
@@ -23,7 +22,7 @@ const SeeAllWords: React.FC<NavigationProps> = ({ navigation, route }) => {
   }
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       {isLoading ? (
         <View className='flex-1 justify-center items-center'>
@@ -59,7 +58,7 @@ const SeeAllWords: React.FC<NavigationProps> = ({ navigation, route }) => {
           }
         />
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StatusBar } from 'react-native'
+import { View, Text, StatusBar } from 'react-native'
 import React from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
 import { RootStackParamList } from 'navigation'
@@ -22,7 +22,7 @@ const EndGame: React.FC<NavigationProps> = ({route, navigation}) => {
   }
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <ScrollView className='flex-1'>
         <View className='py-8'>
@@ -51,7 +51,7 @@ const EndGame: React.FC<NavigationProps> = ({route, navigation}) => {
           />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

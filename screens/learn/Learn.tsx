@@ -5,7 +5,7 @@ import Book from 'components/Book'
 import { useGetDictionaryDataQuery } from 'features/dict/dictionaryApi'
 import { RootStackParamList } from 'navigation'
 import { useEffect } from 'react'
-import { View, Text, SafeAreaView, StatusBar, ActivityIndicator } from 'react-native'
+import { View, Text, StatusBar, ActivityIndicator } from 'react-native'
 import Toast from 'react-native-toast-message'
 import { useSelector } from 'react-redux'
 import { calculatePercent } from 'utils/calculations'
@@ -49,7 +49,7 @@ const Learn = () => {
   }, [error])
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className='flex-1 mt-8 mx-4'>
         <Text className='text-3xl mb-4'>Kitoblar :</Text>
@@ -70,7 +70,7 @@ const Learn = () => {
             </View>
         }
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 

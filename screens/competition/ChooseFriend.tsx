@@ -1,5 +1,5 @@
-import { View, Text, FlatList, SafeAreaView, StatusBar, Pressable } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, StatusBar, Pressable } from 'react-native'
+import React, { useState } from 'react'
 import { useGetFriendsQuery } from 'features/friends/friendsApi'
 import { AnimatedFriendItem } from 'components/AnimatedFriendItem'
 import { UserMinusIcon, UserPlusIcon } from 'react-native-heroicons/solid'
@@ -85,7 +85,7 @@ const ChooseFriend: React.FC<NavigationProps> = ({navigation, route}) => {
   if (isLoading) return <Splash />
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className='flex-1 pb-36'>
         <ScrollView>
@@ -129,7 +129,7 @@ const ChooseFriend: React.FC<NavigationProps> = ({navigation, route}) => {
           </Pressable>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 

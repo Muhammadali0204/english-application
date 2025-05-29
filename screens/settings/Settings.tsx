@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, View, TextInput } from 'react-native'
+import { Text, View, TextInput } from 'react-native'
 import { Button } from 'components/Button'
 import { StatusBar } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -154,7 +154,7 @@ const Settings = () => {
   }, [chNameSuccess, chNameError])
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className='flex-1'>
         <View className='mx-4 mt-4 p-4 bg-slate-50 border border-indigo-300 rounded-lg'>
@@ -216,7 +216,7 @@ const Settings = () => {
           />
         </View>
       </DynamicModal>
-    </SafeAreaView>
+    </View>
   )
 }
 

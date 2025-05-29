@@ -3,7 +3,7 @@ import { Button } from 'components/Button';
 import { useGetDictionaryDataQuery } from 'features/dict/dictionaryApi';
 import { RootStackParamList } from 'navigation';
 import React, { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, StatusBar, TextInput } from 'react-native'
+import { View, Text, StatusBar, TextInput } from 'react-native'
 import Toast from 'react-native-toast-message';
 import { CheckIcon, XMarkIcon } from 'react-native-heroicons/solid';
 
@@ -74,7 +74,7 @@ const FindTranslation: React.FC<NavigationProps> = ({ navigation, route }) => {
   }, [incorrectWordsCount, correctWordsCount])
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       {
         data && index < data.words.length &&
@@ -115,7 +115,7 @@ const FindTranslation: React.FC<NavigationProps> = ({ navigation, route }) => {
           </View>
         </View>
       }
-    </SafeAreaView>
+    </View>
   )
 }
 

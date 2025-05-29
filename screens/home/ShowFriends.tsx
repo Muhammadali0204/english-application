@@ -6,7 +6,6 @@ import {
   TextInput,
   View,
   Text,
-  SafeAreaView,
   StatusBar,
   Pressable,
   Alert,
@@ -129,7 +128,7 @@ const ShowFriends = () => {
   if (isLoading || unfriendLoading || cancelFriendLoading) return <Splash />
 
   return (
-    <SafeAreaView className="flex-1 mx-2">
+    <View className="flex-1 mx-2">
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className='flex-1'>
         <ScrollView className='flex-1 pb-36'>
@@ -226,7 +225,7 @@ const ShowFriends = () => {
       </DynamicModal>
 
       {(unfriendLoading || cancelFriendLoading) && <Splash />}
-    </SafeAreaView>
+    </View>
   )
 }
 

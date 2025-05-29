@@ -1,15 +1,12 @@
-import { StackScreenProps } from '@react-navigation/stack'
 import { AnimatedFriendItem } from 'components/AnimatedFriendItem'
 import Splash from 'components/Splash'
 import { useLazyGetMeQuery } from 'features/auth/authApi';
 import { setUser } from 'features/auth/authSlice';
-import { useAcceptFriendshipRequestMutation, useGetFriendshipRequestsQuery, useRejectFriendshipRequestMutation } from 'features/friends/friendsApi'
-import { RootStackParamList } from 'navigation';
-import React from 'react';
-import { View, Text, SafeAreaView, StatusBar, FlatList } from 'react-native'
-import { CheckCircleIcon, XMarkIcon } from 'react-native-heroicons/solid'
+import { View, Text, StatusBar, FlatList } from 'react-native'
 import Toast from 'react-native-toast-message'
+import { CheckCircleIcon, XMarkIcon } from 'react-native-heroicons/solid'
 import { useDispatch } from 'react-redux';
+import { useAcceptFriendshipRequestMutation, useGetFriendshipRequestsQuery, useRejectFriendshipRequestMutation } from 'features/friends/friendsApi'
 
 
 const ShowRequests = () => {
@@ -37,7 +34,7 @@ const ShowRequests = () => {
       .then(() => {
         Toast.show({
           type: 'info',
-          text1: "Rad edilldi"
+          text1: "Rad etildi"
         })
       })
       .catch(() => {
@@ -74,7 +71,7 @@ const ShowRequests = () => {
   if (isLoading) return <Splash />
 
   return (
-    <SafeAreaView className="flex-1 mx-2">
+    <View className="flex-1 mx-2">
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       {data && data.length === 0 ? (
         <Text className="text-3xl font-bold my-16 text-center">
@@ -99,7 +96,7 @@ const ShowRequests = () => {
           )}
         />
       )}
-    </SafeAreaView>
+    </View>
   )
 }
 

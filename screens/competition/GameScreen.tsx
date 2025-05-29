@@ -4,7 +4,7 @@ import { Button } from 'components/Button';
 import CountdownTimer from 'components/CountdownTimer';
 import { RootStackParamList } from 'navigation';
 import React, { useEffect, useState } from 'react'
-import { View, Text, SafeAreaView, StatusBar, TextInput, Alert, BackHandler } from 'react-native'
+import { View, Text, StatusBar, TextInput, Alert, BackHandler } from 'react-native'
 import Toast from 'react-native-toast-message';
 import { WebSocketMessage, WSMessageTypes } from 'types/ws';
 
@@ -122,7 +122,7 @@ const GameScreen: React.FC<NavigationProps> = ({route, navigation}) => {
   }, []);
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className='flex-1 mx-2'>
         {
@@ -162,7 +162,7 @@ const GameScreen: React.FC<NavigationProps> = ({route, navigation}) => {
           </View>
         }
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 

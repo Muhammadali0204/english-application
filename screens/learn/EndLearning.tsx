@@ -6,7 +6,7 @@ import { setUser } from 'features/auth/authSlice';
 import { useCompleteUnitMutation } from 'features/dict/dictionaryApi';
 import { RootStackParamList } from 'navigation';
 import { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, StatusBar } from 'react-native'
+import { View, Text, StatusBar } from 'react-native'
 import { CheckIcon, XMarkIcon } from 'react-native-heroicons/solid';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -75,7 +75,7 @@ const EndLearning: React.FC<NavigationProps> = ({navigation, route}) => {
 
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className='flex gap-4 mt-12'>
         <View className={styles.rectangle}>
@@ -110,7 +110,7 @@ const EndLearning: React.FC<NavigationProps> = ({navigation, route}) => {
           onPress={() => {navigation.goBack()}}
         />
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 

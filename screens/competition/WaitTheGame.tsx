@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StatusBar, ScrollView, Alert, BackHandler, Pressable } from 'react-native'
+import { View, Text, StatusBar, ScrollView, Alert, BackHandler, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from 'navigation';
@@ -70,7 +70,7 @@ const WaitTheGame: React.FC<NavigationProps> = ({navigation, route}) => {
   }
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <ScrollView>
         <Text className='text-bold text-3xl mt-8'>Savollar soni {game.words_len} ta</Text>
@@ -105,7 +105,7 @@ const WaitTheGame: React.FC<NavigationProps> = ({navigation, route}) => {
           </View>
         }
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

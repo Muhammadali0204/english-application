@@ -2,7 +2,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { RootState } from 'app/store';
 import Unit from 'components/Unit';
 import { RootStackParamList } from 'navigation';
-import { View, Text, SafeAreaView, StatusBar, FlatList } from 'react-native'
+import { View, Text, StatusBar, FlatList } from 'react-native'
 import Toast from 'react-native-toast-message';
 import { useSelector } from 'react-redux';
 import { UnitStatus } from 'types/dict';
@@ -34,7 +34,7 @@ const ChooseUnit: React.FC<NavigationProps> = ({navigation, route}) => {
 
 
   return (
-    <SafeAreaView className='flex-1 mx-2'>
+    <View className='flex-1 mx-2'>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className='flex-1 mt-8 mx-4'>
         <Text className='text-3xl mb-4'>{bookId + 1} - kitob</Text>
@@ -64,7 +64,7 @@ const ChooseUnit: React.FC<NavigationProps> = ({navigation, route}) => {
           keyExtractor={(_, index) => index.toString()}
         />}
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 
